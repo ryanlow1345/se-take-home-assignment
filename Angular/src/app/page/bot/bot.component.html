@@ -1,0 +1,28 @@
+<div class="m-8">
+    <div class="flex flex-col gap-4">
+        <div class="flex flex-row justify-end">
+            <p-button label="Bot" icon="pi pi-plus-circle" severity="primary" styleClass="drop-shadow-sm" (click)="addBot()" />
+        </div>
+        <div class="flex flex-row flex-wrap gap-4">
+        @for(bot of bots(); track $index) {
+        <div class="bg-slate-200/60 backdrop-blur drop-shadow-sm p-8 rounded-2xl flex-1">
+            <div class="flex flex-col justify-center align-middle gap-4">
+                <div class="flex flex-row gap-4">
+                    <p class="font-bold m-0">Bot Number {{bot.id}}</p>
+                </div>
+                <div class="my-auto">
+                    <p-button icon="pi pi-trash" label="Remove" severity="danger" raised styleClass="w-full" (click)="deleteBot(bot.id)"/>
+                </div>
+            </div>
+        </div>
+        }
+        @empty {
+        <div class="bg-slate-200/60 backdrop-blur drop-shadow-sm p-8 rounded-2xl">
+            <div class="flex flex-row flex-1 justify-center">
+                <p>No Data</p>
+            </div>
+        </div>
+        }
+        </div>
+    </div>
+</div>

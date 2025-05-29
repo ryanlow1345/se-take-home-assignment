@@ -1,0 +1,117 @@
+<div class="m-8">
+    <div class="flex flex-col gap-4">
+        <div class="flex flex-row justify-end">
+            <p-button label="Order" icon="pi pi-plus-circle" severity="primary" styleClass="drop-shadow-sm"
+                (click)="add_order.toggle($event)" />
+            <p-popover #add_order styleClass="bg-slate-200/50 backdrop-blue drop-shadow-sm">
+                <form class="flex flex-col gap-4"
+                    [formGroup]="order_form">
+                    <div class="flex flex-col gap-2">
+                        <label for="name">Customer Name</label>
+                        <input pInputText id="name" formControlName="name" autocomplete="off" />
+                    </div>
+                    <div>
+                        <p class="font-medium">Customer type</p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="flex items-center">
+                                <p-radiobutton name="type" value="Normal" inputId="normal" formControlName="type" />
+                                <label for="normal" class="ml-2">Normal</label>
+                            </div>
+
+                            <div class="flex items-center">
+                                <p-radiobutton name="type" value="VIP" inputId="vip" formControlName="type" />
+                                <label for="vip" class="ml-2">VIP</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="">
+                        <p-button label="Submit" severity="primary" styleClass="drop-shadow-sm w-full"
+                            (click)="submitOrder()" />
+                    </div>
+                </form>
+            </p-popover>
+        </div>
+        <div class="text-lg font-bold">Orders being processed</div>
+        @for(item of processing_orders(); track $index) {
+        <div class="bg-slate-200/60 backdrop-blur drop-shadow-sm p-8 rounded-2xl">
+            <div class="flex flex-row justify-between">
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm m-0">ID</p>
+                    <p class="font-bold m-0">{{item.order.id}}</p>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm m-0">Name</p>
+                    <p class="font-bold m-0">{{item.order.name}}</p>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm m-0">Type</p>
+                    <p class="font-bold m-0">{{item.order.type}}</p>
+                </div>
+                <p-tag value="Processing" severity="warn" styleClass="px-4 rounded-2xl text-lg font-bold"/>
+            </div>
+        </div>
+        }
+        @empty {
+        <div class="bg-slate-200/60 backdrop-blur drop-shadow-sm p-8 rounded-2xl">
+            <div class="flex flex-row flex-1 justify-center">
+                <p>No Data</p>
+            </div>
+        </div>
+        }
+        <div class="text-lg font-bold">Orders Pending</div>
+        @for(order of pending_orders(); track $index) {
+        <div class="bg-slate-200/60 backdrop-blur drop-shadow-sm p-8 rounded-2xl">
+            <div class="flex flex-row justify-between">
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm m-0">ID</p>
+                    <p class="font-bold m-0">{{order.id}}</p>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm m-0">Name</p>
+                    <p class="font-bold m-0">{{order.name}}</p>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm m-0">Type</p>
+                    <p class="font-bold m-0">{{order.type}}</p>
+                </div>
+                <p-tag [value]="getStatus(order.id)" [severity]="getSeverity(order.id)" styleClass="px-4 rounded-2xl text-lg font-bold"/>
+            </div>
+        </div>
+        }
+        @empty {
+        <div class="bg-slate-200/60 backdrop-blur drop-shadow-sm p-8 rounded-2xl">
+            <div class="flex flex-row flex-1 justify-center">
+                <p>No Data</p>
+            </div>
+        </div>
+        }
+        <div class="text-lg font-bold">Completed Orders</div>
+        @for(order of completed_orders(); track $index) {
+        <div class="bg-slate-200/60 backdrop-blur drop-shadow-sm p-8 rounded-2xl">
+            <div class="flex flex-row justify-between">
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm m-0">ID</p>
+                    <p class="font-bold m-0">{{order.id}}</p>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm m-0">Name</p>
+                    <p class="font-bold m-0">{{order.name}}</p>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <p class="text-sm m-0">Type</p>
+                    <p class="font-bold m-0">{{order.type}}</p>
+                </div>
+                <p-tag [value]="getStatus(order.id)" [severity]="getSeverity(order.id)" styleClass="px-4 rounded-2xl text-lg font-bold"/>
+            </div>
+        </div>
+        }
+        @empty {
+        <div class="bg-slate-200/60 backdrop-blur drop-shadow-sm p-8 rounded-2xl">
+            <div class="flex flex-row flex-1 justify-center">
+                <p>No Data</p>
+            </div>
+        </div>
+        }
+    </div>
+</div>
